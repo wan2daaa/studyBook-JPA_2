@@ -129,24 +129,24 @@ public class JpaMain {
             /** JPA 관점 맞는 코드
              * 하지만 객체 관점에서 생각하면 양쪽에 다 넣는게 나음
             */
-            Team team = new Team();
-            team.setName("Team1");
-//            team.getMembers().add(member);
-            em.persist(team);
-
-            Member member = new Member();
-            member.setUsername("member1");
-            member.setTeam(team);
-            em.persist(member);
-
-            em.flush();
-            em.clear();
-
-            Team team1 = em.find(Team.class, team.getId());
-            List<Member> members = team1.getMembers();
-            for (Member m : members) {
-                System.out.println("m = " + m.getUsername());
-            }
+//            Team team = new Team();
+//            team.setName("Team1");
+////            team.getMembers().add(member);
+//            em.persist(team);
+//
+//            Member member = new Member();
+//            member.setUsername("member1");
+//            member.setTeam(team);
+//            em.persist(member);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Team team1 = em.find(Team.class, team.getId());
+//            List<Member> members = team1.getMembers();
+//            for (Member m : members) {
+//                System.out.println("m = " + m.getUsername());
+//            }
 
             tx.commit();
         } catch (Exception e) {
