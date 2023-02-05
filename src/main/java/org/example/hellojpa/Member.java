@@ -16,7 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Member {
+public class Member
+{
 
     @Id
     @GeneratedValue
@@ -46,7 +47,7 @@ public class Member {
      *  주인 - mappedBy 안씀
      */
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 
@@ -55,7 +56,7 @@ public class Member {
 //    private List<Product> products = new ArrayList<>();
 
     @OneToMany
-    @JoinColumn()
+//    @JoinColumn()
     private List<MemberProducts> memberProducts = new ArrayList<>();
 
 

@@ -21,7 +21,7 @@ public class Product {
 //    private List<Member> members = new ArrayList<>();
 
     @OneToMany
-    @JoinColumn()
+//    @JoinColumn()
     private List<MemberProducts> memberProducts = new ArrayList<>();
 
 }
