@@ -182,16 +182,16 @@ public class JpaMain {
 //            printMemberAndTeam(member);
 //            printMember(member);
 
-            Member member1 = new Member();
-            member1.setUsername("member1");
-            em.persist(member1);
-
-            Member member2 = new Member();
-            member2.setUsername("member2");
-            em.persist(member2);
-
-            em.flush();
-            em.clear();
+//            Member member1 = new Member();
+//            member1.setUsername("member1");
+//            em.persist(member1);
+//
+//            Member member2 = new Member();
+//            member2.setUsername("member2");
+//            em.persist(member2);
+//
+//            em.flush();
+//            em.clear();
 
 
 
@@ -233,21 +233,91 @@ public class JpaMain {
 
             //고아객체
 
-            Child child1 = new Child();
-            Child child2 = new Child();
+//            Child child1 = new Child();
+//            Child child2 = new Child();
+//
+//            Parent parent1
+//                = new Parent();
+//            parent1.addChild(child1);
+//            parent1.addChild(child2);
+//
+//            em.persist(parent1);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Parent findParent = em.find(Parent.class, parent1.getId());
+//            findParent.getChildList().remove(0);
 
-            Parent parent1
-                = new Parent();
-            parent1.addChild(child1);
-            parent1.addChild(child2);
+            //임베디드
 
-            em.persist(parent1);
+//            Member member = new Member();
+//            member.setUsername("hello");
+//            member.setHomeAddress(new Address("city", "street", "10"));
+//            member.setWorkPeriod(new Period());
+//
+//            em.persist(member);
 
-            em.flush();
-            em.clear();
+            //값타입
+//            Address address = new Address("city", "street", "10");
+//
+//            Member member = new Member();
+//            member.setUsername("member1");
+//            member.setHomeAddress(address);
+//            em.persist(member);
+//
+//            Member member1 = new Member();
+//            member1.setUsername("member2");
+//            member1.setHomeAddress(address);
+//            em.persist(member1);
+//
+////            member.getHomeAddress().setCity("newCity");
 
-            Parent findParent = em.find(Parent.class, parent1.getId());
-            findParent.getChildList().remove(0);
+            //불변 객체
+//            Address address = new Address("city", "street", "10");
+//
+//            Member member = new Member();
+//            member.setUsername("member1");
+//            member.setHomeAddress(address);
+//            em.persist(member);
+//
+//            Address newAddress = new Address(address.getCity(), address.getStreet(),
+//                address.getZipcode());
+//
+//            member.setHomeAddress(newAddress);
+
+//            Member member = new Member();
+//            member.setUsername("member1");
+//            member.setHomeAddress(new Address("homecity", "street", "10000"));
+//
+//            member.getFavoriteFoods().add("치킨");
+//            member.getFavoriteFoods().add("족발");
+//            member.getFavoriteFoods().add("피자");
+//
+////            member.getAddressHistory().add(new Address("old1", "street", "10000"));
+////            member.getAddressHistory().add(new Address("old2", "street", "10000"));
+//
+//            em.persist(member);
+//
+//            em.flush(); em.clear();
+//
+//            Member findMember = em.find(Member.class, member.getId());
+//
+//            List<Address> addressHistory = findMember.getAddressHistory();
+//            for (Address address : addressHistory) {
+//                System.out.println("address.getCity() = " + address.getCity());
+//            }
+//            // oldCity -> homeCity
+////            findMember.getHomeAddress().setCity(); // X
+////            findMember.setHomeAddress(new Address("homeCity", "street", "10000")); // O
+//
+//            //치킨 -> 한식
+//            findMember.getFavoriteFoods().remove("치킨");
+//            findMember.getFavoriteFoods().add("한식");
+//
+//            findMember.getAddressHistory().remove(new Address("old1", "street", "10000"));
+//            findMember.getAddressHistory().add(new Address("new1", "street", "10000"));
+
 
             tx.commit();
         } catch (Exception e) {
@@ -264,17 +334,17 @@ public class JpaMain {
         emf.close();
     }
 
-    private static void printMember(Member member) {
-        String username = member.getUsername();
-        System.out.println("username = " + username);
-    }
-
-    private static void printMemberAndTeam(Member member) {
-        String username = member.getUsername();
-        System.out.println("username = " + username);
-
-        Team team = member.getTeam();
-        System.out.println("team = " + team.getName());
-    }
+//    private static void printMember(Member member) {
+//        String username = member.getUsername();
+//        System.out.println("username = " + username);
+//    }
+//
+//    private static void printMemberAndTeam(Member member) {
+//        String username = member.getUsername();
+//        System.out.println("username = " + username);
+//
+//        Team team = member.getTeam();
+//        System.out.println("team = " + team.getName());
+//    }
 
 }

@@ -1,9 +1,18 @@
 package org.example.hellojpa;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.locks.Lock;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,39 +43,62 @@ public class Member
     /** EAGER - 즉시 로딩
      *  LAZY
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    /** ManyToOne -> JoinColumn ( 연결할 컬럼 ) */
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    /** ManyToOne -> JoinColumn ( 연결할 컬럼 ) */
+//    @JoinColumn(name = "TEAM_ID")
+//    private Team team;
 
     /**
-     * 연관관계의 주인
-     *  양방향 매핑에서 나옴
-     *  연관관계의 주인 만이 외래 키를 관리 (등록, 수정)
-     *  주인 아닌 쪽은 읽기만 가능
-     *  주인 - mappedBy 안씀
+     * 연관관계의 주인 양방향 매핑에서 나옴 연관관계의 주인 만이 외래 키를 관리 (등록, 수정) 주인 아닌 쪽은 읽기만 가능 주인 - mappedBy 안씀
      */
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "LOCKER_ID")
+//    private Locker locker;
 
 //    @ManyToMany
 //    @JoinTable(name = "MEMBER_PRODUCT")
 //    private List<Product> products = new ArrayList<>();
 
-    @OneToMany
-//    @JoinColumn()
-    private List<MemberProducts> memberProducts = new ArrayList<>();
+//    @OneToMany
+////    @JoinColumn()
+//    private List<MemberProducts> memberProducts = new ArrayList<>();
+//
+//    @Embedded
+//    private Period workPeriod;
+//
+//    @Embedded
+//    private Address homeAddress;
+//
+//    @Embedded
+//    @AttributeOverrides({
+//        @AttributeOverride(name="city",
+//            column=@Column(name = "WORK_CITY")),
+//        @AttributeOverride(name="street",
+//            column=@Column(name = "WORK_STREET")),
+//        @AttributeOverride(name="zipcode",
+//            column=@Column(name = "WORK_ZIPCODE"))
+//    })
+//    private Address workAddress;
 
+    @Embedded
+    private Address homeAddress;
 
-    public Locker getLocker() {
-        return locker;
-    }
+    @ElementCollection
+    @CollectionTable(name = "FAVORITE_FOOD", joinColumns =
+        @JoinColumn(name = "MEMBER_ID") )
+    @Column(name = "FOOD_NAME")
+    private Set<String> favoriteFoods = new HashSet<>();
 
-    public void setLocker(Locker locker) {
-        this.locker = locker;
-    }
+//    @ElementCollection
+//    @CollectionTable(name = "ADDRESS", joinColumns =
+//        @JoinColumn(name = "MEMBER_ID"))
+//    private List<Address> addressHistory = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "MEMBER_ID")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
+
 
 
     public Long getId() {
@@ -85,12 +117,27 @@ public class Member
         this.username = username;
     }
 
-    public Team getTeam() {
-        return team;
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this); //Todo 1. 연관관계 편의 메소드
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public Set<String> getFavoriteFoods() {
+        return favoriteFoods;
+    }
+
+    public void setFavoriteFoods(Set<String> favoriteFoods) {
+        this.favoriteFoods = favoriteFoods;
+    }
+
+    public List<AddressEntity> getAddressHistory() {
+        return addressHistory;
+    }
+
+    public void setAddressHistory(List<AddressEntity> addressHistory) {
+        this.addressHistory = addressHistory;
     }
 }

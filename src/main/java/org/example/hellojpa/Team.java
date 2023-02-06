@@ -22,18 +22,8 @@ public class Team extends BaseEntity{
      *  연관관계 주인 아님
      *  그래도 조회는 가능
      */
-    @OneToMany(mappedBy = "team")
-    private List<Member> members = new ArrayList<>();
-
-
-
-    public List<Member> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
+//    @OneToMany(mappedBy = "team")
+//    private List<Member> members = new ArrayList<>();
 
     public Long getId() {
         return id;
